@@ -1,73 +1,106 @@
 import random
 
+class movie:
+    def __init__(self , title ,publish , type ,play_counter) -> None:
+        self.title = title
+        self.publish = publish
+        self.type = type
+        self.play_counter = play_counter 
+    
+    def __repr__(self):
+        return f"{self.title}  {self.publish}  {self.type} {self.play_counter}"
+    
+    
+    
+    def generate_views(self):
+        play_counter = play_counter * 10
+        
+    
+    def play(self,play_counter = 50):
+        play_counter += 1
+        return f"{self.title}  {self.publish}  {self.type} {play_counter}"
+    
+    
+class series(movie):
+    def __init__(self , title , publish , type , play_counter , sezon , episode):
+        super().__init__( title , publish , type , play_counter )
+        self.sezon = sezon
+        self.episode = episode
+    def __repr__(self):
+        return f" {self.title} {self.publish}  {self.type} {self.play_counter} {self.sezon} {self.episode} "
+    
+    
+
+
+class library:
+
+    def __init__(self):
+        self.library =[]
+        
+
+    def add(self, object):
+        if not (type(object) == movie or type(object) == series): raise ValueError("To musi być film lub serial")
+        self.library.append(object)
+       
+        
+    def get_movies(self):
+          return [i for i in self.library if type(i) == movie]         
+    
+    def get_series(self):
+          return [i for i in self.library if type(i) == series]
+    
+   
+
+m = movie("Annabelle" , 2019 , "Horror" , 5*10)
+s = series("The walking dead", 2022 , "Horror", 10*10 , "E02" ,"S11")
+x = library()
+x.add(m)
+x.add(s)
+
+
+
+play = movie("Annabelle" , 2019 , "Horror" , 5)
+
+play.play()
+
+t = input("Wpisz nazwe serialu")
+
+def search(t):
+    if t == m.title:
+       print(f' Wyszukany film: {x.get_movies()}')
+    elif t == s.title:
+       print(f' Wyszukany serial: {x.get_series()}')
+    else:
+       print("Brak filmu o podanym tytule")
+search(t)    
+
+
+print(f'Film: {x.get_movies()}')
+print(f'Serial: {x.get_series()}')
+print(f' Odtwarzany film: {play.play()}')
+
+
+
+    
+def top_titles():
+    if m.play_counter > s.play_counter: 
+        
+        print (f'Najczęściej oglądany film: {m}')
+        
+    else:              
+        print (f'Najczęściej oglądany film:{s}')
+top_titles()        
+
+
+
 
 def generate_views():
-      number = random.randint(1, 100)
-      return number
-
-def list_of_movies():
-    number = generate_views()
-    e = random.choice([1 , 3 , 5 , 7 , 9])
-    
-    Lista_1 =["the Fog 2011 Horror",10 *10 ,"Annabelle 2019 Horror",34 *10 ,"the walking dead E01S11 2022 Horror",50 *10,"the walking dead E02S11 2022 Horror",45 *10,"the walking dead E03S11 2022 Horror",12*10]
-
-   
-    Lista_1[e] = number
-    return Lista_1
-
-
-def  fog():
-    
-    Lista_1 = list_of_movies()   
-    Lista_1[1] += 1
-    print(f'Odtwarzasz film {Lista_1[0]} ilość wyświetleń: {Lista_1[1]}')
-fog()
-
-def  annabelle():
-    
-    Lista_1 = list_of_movies()   
-    Lista_1[3] += 1
-    print(f'Odtwarzasz film {Lista_1[2]} ilość wyświetleń: {Lista_1[3]}')
-annabelle()
-
-def  walking_1():
-    
-    Lista_1 = list_of_movies()   
-    Lista_1[5] += 1
-    print(f'Odtwarzasz film {Lista_1[4]} ilość wyświetleń: {Lista_1[5]}')
-walking_1()
-
-def  walking_2():
-    
-    Lista_1 = list_of_movies()   
-    Lista_1[7] += 1
-    print(f'Odtwarzasz film {Lista_1[6]} ilość wyświetleń: {Lista_1[7]}')
-walking_2()
-
-def  walking_3():
-    
-    Lista_1 = list_of_movies()   
-    Lista_1[9] += 1
-    print(f'Odtwarzasz film {Lista_1[8]} ilość wyświetleń: {Lista_1[9]}')
-walking_3()
-
-
-def information():
-    print(list_of_movies())
-    Lista_1 = list_of_movies()
-    print(f'Lista filmów: \n {Lista_1[0]} ilość wyświetleń: {Lista_1[1]} \n{Lista_1[2]} ilośc wyświetleń: {Lista_1[3]} \n  {Lista_1[4]} ilość wyświetleń {Lista_1[5]} \n {Lista_1[6]} ilość wyświetleń {Lista_1[7]} \n {Lista_1[8]} ilość wyświetleń {Lista_1[9]}')
-    
-information()    
-
-def get_data():
-    n = input("Wpisz nazwę filmu który chcesz odtworzyć: 1-5 ")   
-    return n
-
-m = {"1": fog , "2": annabelle  , "3": walking_1 , "4": walking_2 , "5": walking_3}
-  
-def main():
-   n = get_data()
-   t=m[n]()
-   
-main()
-
+       z = random.choice([x.library[0] , x.library[1]])
+       if z == x.library[1]:
+            z = movie("Annabelle" , 2019 , "Horror" , random.randint(0, 100))
+            print(f'Losowa ilośc wyświetleń od 0-100 {z}')
+       else:   
+            z = series("The walking dead", 2022 , "Horror", random.randint(0, 100) , "E02" ,"S11")
+            print(f'Losowa ilośc wyświetleń od 0-100 {z}')
+        
+generate_views()       

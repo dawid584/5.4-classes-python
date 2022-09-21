@@ -43,15 +43,18 @@ class Library:
     def get_series(self):
           return [i for i in self.library if type(i) == Series]
         
+    def reperate_generate_views(self , how_many=10):
+        
+        self.how_many = how_many
+        for _ in range(how_many):
+            self.generate_views() 
+    
     def generate_views(self):
 
         k = random.choice(self.library)
         liczba = random.randint(0,100)   
-        k.play_counter = liczba
+        k.play_counter += liczba
         
-        v = random.choice(self.library)
-        v.play_counter *=10
-
     def search(self , name):
         self.name = name
         Lista_1 = []  
@@ -74,7 +77,7 @@ x.generate_views()
 s.play()
 x.search("Annabelle")
 x.top_title()
-
+x.reperate_generate_views()
 print(f'Film: {x.get_movies()}')
 print(f'Serial: {x.get_series()}')
 print(f'Film istnieje: {x.search("Annabelle")}')

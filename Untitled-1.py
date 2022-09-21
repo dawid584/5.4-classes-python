@@ -16,8 +16,6 @@ class Movie:
         self.play_counter += 1
         
   
-    def generate_views(self ):
-        self.play_counter *=10
   
 class Series(Movie):
     def __init__(self , title , publish , type , play_counter , sezon , episode):
@@ -44,12 +42,15 @@ class Library:
     
     def get_series(self):
           return [i for i in self.library if type(i) == Series]
-    
+        
     def generate_views(self):
+
         k = random.choice(self.library)
         liczba = random.randint(0,100)   
         k.play_counter = liczba
-       
+        
+        v = random.choice(self.library)
+        v.play_counter *=10
 
     def search(self , name):
         self.name = name
@@ -70,11 +71,8 @@ x = Library()
 x.add(m)
 x.add(s)
 x.generate_views()
-s.generate_views()
-m.generate_views()
 s.play()
 x.search("Annabelle")
-
 x.top_title()
 
 print(f'Film: {x.get_movies()}')

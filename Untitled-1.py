@@ -1,13 +1,12 @@
 import random
-from turtle import title
-from typing import ItemsView
+
 
 class Movie:
-    def __init__(self , title ,publish , type ,play_counter) -> None:
+    def __init__(self , title ,publish , type ,play_counter =0) -> None:
         self.title = title
         self.publish = publish
         self.type = type
-        self.play_counter = play_counter = 0
+        self.play_counter = play_counter
     
     def __repr__(self):
         return f"{self.title}  {self.publish}  {self.type} {self.play_counter}"
@@ -51,38 +50,19 @@ class Library:
         liczba = random.randint(0,100)   
         k.play_counter = liczba
        
-    def input_movie(self , name): 
+
+    def search(self , name):
         self.name = name
-
-    def search(self):
-        
         Lista_1 = []  
-        e = self.library
-        
         for i in self.library:
-           Lista_1.append(i.title)
-        for b in Lista_1:
-            if b == self.name:
-                return self.name  
-
-    def input_amounts(self, amount):
-        self.amount = amount
-    
-    def top_title(self):
-        list_1 = [] 
-                
-        dictionary ={}
-        for i in self.library:
-           dictionary[i.play_counter] = i.title 
-                       
-        dictionary = sorted(dictionary.items() , reverse=True )
+            if i.title == self.name:
+               Lista_1.append(i)
         
-        
+        return Lista_1 
 
-        for i in range(0 , self.amount):
-            list_1.append(dictionary[i])
-           
-        return f' Najpopularniejsze tytuły oraz ilośc wyświetleń: {list_1}'
+        
+    def top_title(self , amount = 2):
+        return sorted(self.library, key=lambda x: x.play_counter)[:amount]
 
 m = Movie("Annabelle" , 2019 , "Horror" , 0)
 s = Series("The walking dead", 2022 , "Horror", 0 , "E02" ,"S11")
@@ -93,12 +73,11 @@ x.generate_views()
 s.generate_views()
 m.generate_views()
 s.play()
-x.input_movie("Annabelle")
-x.search()
-x.input_amounts(int(1))
+x.search("Annabelle")
+
 x.top_title()
 
 print(f'Film: {x.get_movies()}')
 print(f'Serial: {x.get_series()}')
-print(f'Film istnieje: {x.search()}')
+print(f'Film istnieje: {x.search("Annabelle")}')
 print(x.top_title())
